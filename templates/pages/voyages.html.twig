@@ -14,12 +14,18 @@
             <tr>
                 <th class="text-left align-top" scope="col">
                     Ville
+                    <a href="{{ path('voyages.sort', {champ:'ville', ordre:'ASC'}) }}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"><</a>
+                    <a href="{{ path('voyages.sort', {champ:'ville', ordre:'DESC'}) }}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">></a>
                 </th>
                 <th class="text-left align-top" scope="col">
                     Pays
+                    <a href="{{ path('voyages.sort', {champ:'pays', ordre:'ASC'}) }}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"><</a>
+                    <a href="{{ path('voyages.sort', {champ:'pays', ordre:'DESC'}) }}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">></a>
                 </th>
                 <th class="text-end align-top" scope="col">
                     Note
+                    <a href="{{ path('voyages.sort', {champ:'note', ordre:'ASC'}) }}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"><</a>
+                    <a href="{{ path('voyages.sort', {champ:'note', ordre:'DESC'}) }}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">></a>
                 </th>
                 <th class="text-center align-top" scope="col">
                     Date
@@ -38,9 +44,6 @@
                         {{ visite.pays }}
                     </td>
                     <td class="text-end">
-                        <strong>{{ visite.note }}/20</strong>
-                    </td>
-                    <td class="text-center">
                         {% if visite.note<10 %}
                                 <div class="text-danger">
                                     {{ visite.note }}/20
@@ -50,6 +53,9 @@
                                     {{ visite.note }}/20
                                 </div>
                          {% endif %}
+                    </td>
+                    <td class="text-center">
+                        {{ visite.datecreationstring }}
                     </td>  
                 </tr>
             {% endfor %}
