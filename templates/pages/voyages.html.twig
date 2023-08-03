@@ -1,5 +1,58 @@
 {% extends "basefront.html.twig" %}
 {% block body %}
-<h1>Page voyages</h1>
-<a href="{{ path('accueil') }}">Accueil</a>
+    {#<h1>Page voyages</h1>
+    <a href="{{ path('accueil') }}">Accueil</a>#}
+{#    {% for visite in visites %}
+        {{ visite.ville }}
+        {{ visite.pays }}
+        {{ visite.note }}
+        {{ visite.datecreation }}
+    {% endfor %}#}
+    <table class="table table-striped">
+        <caption>Liste des voyages</caption>
+        <thead>
+            <tr>
+                <th class="text-left align-top" scope="col">
+                    Ville
+                </th>
+                <th class="text-left align-top" scope="col">
+                    Pays
+                </th>
+                <th class="text-end align-top" scope="col">
+                    Note
+                </th>
+                <th class="text-center align-top" scope="col">
+                    Date
+                </th>
+            </tr>
+        </thead>   
+        <tbody>
+            {% for visite in visites %}
+                <tr>
+                    <td>
+                        <h5 class="text-primary">
+                            <a href="#">{{ visite.ville }}</a>
+                        </h5>
+                    </td>
+                    <td>
+                        {{ visite.pays }}
+                    </td>
+                    <td class="text-end">
+                        <strong>{{ visite.note }}/20</strong>
+                    </td>
+                    <td class="text-center">
+                        {% if visite.note<10 %}
+                                <div class="text-danger">
+                                    {{ visite.note }}/20
+                                </div>
+                            {% else %}
+                                <div class="text-success">
+                                    {{ visite.note }}/20
+                                </div>
+                         {% endif %}
+                    </td>  
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
