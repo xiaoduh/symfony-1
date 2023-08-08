@@ -34,7 +34,7 @@ class VoyagesController extends AbstractController{
      */
     
     public function sort($champ, $ordre): Response{
-        $visites = $this->repository->findallOrderBy($champ, $ordre);
+        $visites = $this->repository->findAllOrderBy($champ, $ordre);
         return $this->render("pages/voyages.html.twig", [
             'visites' => $visites
         ]);
@@ -73,7 +73,7 @@ class VoyagesController extends AbstractController{
      * @return Response
      */
     public function index(): Response {
-        $visites = $this->repository->findallOrderBy('datecreation', 'DESC');
+        $visites = $this->repository->findAllOrderBy('datecreation', 'DESC');
         return $this->render("pages/voyages.html.twig", ['visites' => $visites]);
 }
 }
