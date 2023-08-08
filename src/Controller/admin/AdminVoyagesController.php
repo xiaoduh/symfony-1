@@ -2,8 +2,9 @@
 namespace App\Controller\admin;
 
 use App\Entity\Visite;
-use App\Repository\VisiteRepository;
+use App\Form\VisiteType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\VisiteRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -45,7 +46,7 @@ class AdminVoyagesController extends AbstractController {
     
     /**
      * @Route("/admin/suppr/{id}", name="admin.voyage.suppr")
-     * @param Visite $visite
+     * @param Int $id id of voyage to delete
      * @return Response
      */
     public function suppr($id, VisiteRepository $repository): Response{
@@ -56,27 +57,27 @@ class AdminVoyagesController extends AbstractController {
     
     /**
      * @Route("/admin/edit/{id}", name="admin.voyage.edit")
-     * @param Visite $visite
+     * @param Int $id id of voyage to edit
      * @param Request $request
      * @return Response
      */
-    public function edit($id, VisiteRepository $repository): Response{
+    public function edit($id, VisiteRepository $repository, Request $request): Response{
         $visite = $repository->find($id);
+        $formVisite = $this->createForm(VisiteType::class, $visite);
+        
+        $formVisite->handleRequest($request);
+        if($formVisite->isSubmitted() && $formVisite->isValid()){
+            $this->repository->add($visite, true);
+            return $this->redirectToRoute(self::ROUTE_ADMIN_VOYAGES);
+        }     
+        
         return $this->render("admin/admin.voyage.edit.html.twig", [
-            'visite' => $visite
+            'visite' => $visite,
+            'formvisite' => $formVisite->createView()
         ]);
-//        $formVisite = $this->createForm(VisiteType::class, $visite);
+//        
 //
-//        $formVisite->handleRequest($request);
-//        if($formVisite->isSubmitted() && $formVisite->isValid()){
-//            $this->repository->add($visite, true);
-//            return $this->redirectToRoute(self::ROUTE_ADMIN_VOYAGES);
-//        }     
-//
-//        return $this->render(self::PAGE_ADMIN_VOYAGE_EDIT, [
-//            'visite' => $visite,
-//            'formvisite' => $formVisite->createView()
-//        ]);        
+               
     }
     
    
