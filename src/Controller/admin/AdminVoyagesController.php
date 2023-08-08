@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Description of AdminVoyagesController
  *
- * @author emds
+ * @author clement
  */
 class AdminVoyagesController extends AbstractController {
 
@@ -48,11 +48,36 @@ class AdminVoyagesController extends AbstractController {
      * @param Visite $visite
      * @return Response
      */
-    public function suppr(Visite $visite): Response{
+    public function suppr($id, VisiteRepository $repository): Response{
+        $visite = $repository->find($id);
         $this->repository->remove($visite, true);
         return $this->redirectToRoute(self::ROUTE_ADMIN_VOYAGES);
     }
     
+    /**
+     * @Route("/admin/edit/{id}", name="admin.voyage.edit")
+     * @param Visite $visite
+     * @param Request $request
+     * @return Response
+     */
+    public function edit($id, VisiteRepository $repository): Response{
+        $visite = $repository->find($id);
+        return $this->render("admin/admin.voyage.edit.html.twig", [
+            'visite' => $visite
+        ]);
+//        $formVisite = $this->createForm(VisiteType::class, $visite);
+//
+//        $formVisite->handleRequest($request);
+//        if($formVisite->isSubmitted() && $formVisite->isValid()){
+//            $this->repository->add($visite, true);
+//            return $this->redirectToRoute(self::ROUTE_ADMIN_VOYAGES);
+//        }     
+//
+//        return $this->render(self::PAGE_ADMIN_VOYAGE_EDIT, [
+//            'visite' => $visite,
+//            'formvisite' => $formVisite->createView()
+//        ]);        
+    }
     
    
     

@@ -5,11 +5,15 @@ namespace App\Entity;
 use App\Repository\VisiteRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * @ORM\Entity(repositoryClass=VisiteRepository::class)
+ * 
+ * @author Clément
  */
-class Visite
+class Visite 
 {
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
