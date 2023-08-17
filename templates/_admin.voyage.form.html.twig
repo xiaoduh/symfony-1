@@ -21,10 +21,10 @@
             </div>
             <div class="col">
                 <!-- emplacement image -->
-                {#<div>
+                <div>
                     {{ form_row(formvisite.imageFile) }}
-                </div>#}
-                {#<div>
+                </div>
+                <div>
                     Image actuelle
                     {% if visite.imagename %}
                         <img src="{{ app.request.getBasePath()~vich_uploader_asset(visite, 'imageFile') }}"
@@ -32,7 +32,7 @@
                     {% else %}
                         <p>(aucune image)</p>
                     {% endif %}            
-                </div>#}
+                </div>
             </div>
         </div>
         <div class="row">
